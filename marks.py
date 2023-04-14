@@ -2,7 +2,6 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import tkinter as tk
-
 # Load the data
 data = pd.read_csv('data.csv')
 # Split the data into training and testing sets
@@ -36,29 +35,23 @@ clear_button.grid(row=3, column=0)
 def train_model():
     # Load data
     global data
-
     # Create X and y arrays
     X = data[['Test 1', 'Test 2']]
     y = data['Test 3']
-
     # Train model
     model = LinearRegression()
     model.fit(X, y)
-
     # Get input from user
     test1 = float(test1_input.get())
     test2 = float(test2_input.get())
-
     # Predict fourth test result
     test3 = model.predict([[test1, test2]])
     if test3[0] > 50:
         test3[0] = 50
     else:
         test3[0]=round(test3[0],2)
-
     # Display result to user
     test3_prediction.config(text=str(test3[0]))
-
     # Add new data to the dataset
     new_data = pd.DataFrame({
         'Test 1': [test1],
@@ -67,7 +60,6 @@ def train_model():
     })
     data = pd.concat([data, new_data], ignore_index=True)
     data.to_csv('data.csv', index=False)
-
 # Create a button to train the model and display the predicted score
 train_button = tk.Button(window, text="Train Model", command=train_model)
 train_button.grid(row=3, column=1)
